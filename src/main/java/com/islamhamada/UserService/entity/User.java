@@ -12,9 +12,9 @@ import lombok.Data;
 public class User {
     @Id
     @GeneratedValue
-    private long numId;
+    private long id;
 
-    private String id;
+    private String auth0Id;
 
     private String username;
     private String email;
