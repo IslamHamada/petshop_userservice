@@ -15,7 +15,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    private ResponseEntity<Long> storeUser(@RequestBody StoreUserRequest request){
+    public ResponseEntity<Long> storeUser(@RequestBody StoreUserRequest request){
         return new ResponseEntity<>(userService.storeUser(request), HttpStatus.OK);
     }
 }
