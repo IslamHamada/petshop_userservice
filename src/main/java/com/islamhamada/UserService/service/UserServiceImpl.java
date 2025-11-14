@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         } else {
             User user = User.builder()
                     .auth0Id(request.getAuth0_id())
-                    .username(request.getEmail())
+                    .username(request.getUsername())
                     .email(request.getEmail())
                     .build();
             user = userRepository.save(user);
