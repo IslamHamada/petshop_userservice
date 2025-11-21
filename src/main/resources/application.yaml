@@ -2,7 +2,7 @@ spring:
   application:
     name: UserService
   datasource:
-    url: jdbc:mysql://${DB_URL:localhost}:3306/petshop
+    url: jdbc:mysql://${DB_URL:localhost:3306}/petshop
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -11,7 +11,7 @@ spring:
     hibernate:
       ddl-auto: update
   config:
-    import: configserver:http://${CONFIG_SERVER_URL:localhost}:8082
+    import: configserver:http://${CONFIG_SERVER_URL:localhost:8082}
   security:
     oauth2:
       resourceserver:
