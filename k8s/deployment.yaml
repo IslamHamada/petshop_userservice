@@ -15,7 +15,7 @@ spec:
         - name: dockerhub-secret
       containers:
         - name: user-service-app
-          image: islamhamada/petshop:UserService
+          image: IMAGE_URL/user-service
           imagePullPolicy: Always
           resources:
             limits:
