@@ -4,9 +4,9 @@ node {
     def mvnCMD = "${mvnHome}/bin/mvn"
     stage('Checkout') {
         checkout([$class: 'GitSCM',
-         branches: [[name: '*/Jenkins_gcp']],
+         branches: [[name: '*/jenkins_gcp']],
          userRemoteConfigs: [[credentialsId: 'git',
-         url: 'https://github.com/IslamHamada/petshop_configserver.git']]])
+         url: 'https://github.com/IslamHamada/petshop_userservice.git']]])
     }
     stage('Build and Push Image') {
         withCredentials([file(credentialsId: 'gcp', variable: 'GCP_KEY')]){
