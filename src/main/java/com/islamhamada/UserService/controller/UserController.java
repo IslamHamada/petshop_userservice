@@ -2,6 +2,7 @@ package com.islamhamada.UserService.controller;
 
 import com.islamhamada.UserService.entity.User;
 import com.islamhamada.UserService.model.StoreUserRequest;
+import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,15 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyRole('Customer')")
-    @PostMapping("/{user_id}")
+    @GetMapping("/{user_id}")
     public ResponseEntity<User> getUser(@PathVariable long user_id){
         return new ResponseEntity<>(userService.getUser(user_id), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('Customer')")
+    @PutMapping("/{user_id}")
+    public ResponseEntity updateUser(@PathVariable long user_id, @RequestBody UpdateUserRequest request){
+        userService.updateUser(user_id, request);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -2,6 +2,7 @@ package com.islamhamada.UserService.service;
 
 import com.islamhamada.UserService.entity.User;
 import com.islamhamada.UserService.model.StoreUserRequest;
+import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(long userId) {
         return userRepository.findById(userId).get();
+    }
+
+    @Override
+    public void updateUser(long user_id, UpdateUserRequest request) {
+        User user = userRepository.findById(user_id).get();
+        user.setFirstName(request.getFirst_name());
+        user.setLastName(request.getLast_name());
+        user.setCountry(request.getCountry());
+        user.setCity(request.getCity());
+        user.setPostalCode(request.getPostalCode());
+        user.setStreet(request.getStreet());
+        user.setHouseNumber(request.getHouseNumber());
+        user.setPhoneNumber(request.getPhoneNumber());
+        userRepository.save(user);
     }
 }
