@@ -31,8 +31,8 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('Customer')")
     @PutMapping("/{user_id}")
-    public ResponseEntity updateUser(@PathVariable long user_id, @RequestBody UpdateUserRequest request){
-        userService.updateUser(user_id, request);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<User> updateUser(@PathVariable long user_id, @RequestBody UpdateUserRequest request){
+        User user = userService.updateUser(user_id, request);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 }
