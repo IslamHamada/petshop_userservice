@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(long user_id, UpdateUserRequest request) {
         User user = userRepository.findById(user_id).get();
-        user.setFirstName(request.getFirst_name());
-        user.setLastName(request.getLast_name());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
         user.setCountry(request.getCountry());
         user.setCity(request.getCity());
         user.setPostalCode(request.getPostalCode());
