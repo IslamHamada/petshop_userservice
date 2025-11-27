@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(long user_id, UpdateUserRequest request) {
+    public User updateUser(long user_id, UpdateUserRequest request) {
         User user = userRepository.findById(user_id).get();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
@@ -47,6 +47,6 @@ public class UserServiceImpl implements UserService {
         user.setStreet(request.getStreet());
         user.setHouseNumber(request.getHouseNumber());
         user.setPhoneNumber(request.getPhoneNumber());
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

@@ -7,5 +7,5 @@ import com.islamhamada.UserService.model.UpdateUserRequest;
 public interface UserService {
     long storeUser(StoreUserRequest request);
     User getUser(long userId);
-    void updateUser(long user_id, UpdateUserRequest request);
+    User updateUser(long user_id, UpdateUserRequest request);
 }
