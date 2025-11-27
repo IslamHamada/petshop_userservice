@@ -7,6 +7,7 @@ import com.islamhamada.UserService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
                     .auth0Id(request.getAuth0_id())
                     .username(request.getUsername())
                     .email(request.getEmail())
+                    .createdAt(Instant.now())
                     .build();
             user = userRepository.save(user);
             return user.getId();
