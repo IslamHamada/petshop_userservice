@@ -4,6 +4,7 @@ import com.islamhamada.UserService.entity.User;
 import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.service.UserService;
+import com.islamhamada.petshop.contracts.dto.UserDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,14 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('Customer')")
     @GetMapping("/{user_id}")
-    public ResponseEntity<User> getUser(@PathVariable long user_id){
+    public ResponseEntity<UserDTO> getUser(@PathVariable long user_id){
         return new ResponseEntity<>(userService.getUser(user_id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('Customer')")
     @PutMapping("/{user_id}")
-    public ResponseEntity<User> updateUser(@PathVariable long user_id, @RequestBody UpdateUserRequest request){
-        User user = userService.updateUser(user_id, request);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable long user_id, @Valid @RequestBody UpdateUserRequest request){
+        UserDTO user = userService.updateUser(user_id, request);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
