@@ -4,6 +4,7 @@ import com.islamhamada.UserService.entity.User;
 import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.repository.UserRepository;
+import com.islamhamada.petshop.contracts.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +35,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(long userId) {
-        return userRepository.findById(userId).get();
+    public UserDTO getUser(long userId) {
+        User user = userRepository.findById(userId).get();
+        UserDTO userDTO = UserDTO.builder()
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .createdAt(user.getCreatedAt())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phoneNumber(user.getPhoneNumber())
+                .country(user.getCountry())
+                .city(user.getCity())
+                .postalCode(user.getPostalCode())
+                .street(user.getStreet())
+                .houseNumber(user.getHouseNumber())
+                .build();
+        return userDTO;
     }
 
     @Override
-    public User updateUser(long user_id, UpdateUserRequest request) {
+    public UserDTO updateUser(long user_id, UpdateUserRequest request) {
         User user = userRepository.findById(user_id).get();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
@@ -49,6 +64,21 @@ public class UserServiceImpl implements UserService {
         user.setStreet(request.getStreet());
         user.setHouseNumber(request.getHouseNumber());
         user.setPhoneNumber(request.getPhoneNumber());
-        return userRepository.save(user);
+        user = userRepository.save(user);
+
+        UserDTO userDTO = UserDTO.builder()
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .createdAt(user.getCreatedAt())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phoneNumber(user.getPhoneNumber())
+                .country(user.getCountry())
+                .city(user.getCity())
+                .postalCode(user.getPostalCode())
+                .street(user.getStreet())
+                .houseNumber(user.getHouseNumber())
+                .build();
+        return userDTO;
     }
 }
