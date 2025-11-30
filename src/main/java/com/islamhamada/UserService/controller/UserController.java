@@ -4,6 +4,7 @@ import com.islamhamada.UserService.entity.User;
 import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('Customer')")
     @PostMapping
-    public ResponseEntity<Long> storeUser(@RequestBody StoreUserRequest request){
+    public ResponseEntity<Long> storeUser(@Valid @RequestBody StoreUserRequest request){
         return new ResponseEntity<>(userService.storeUser(request), HttpStatus.OK);
     }
 
