@@ -1,11 +1,13 @@
 package com.islamhamada.UserService.service;
 
 import com.islamhamada.UserService.entity.User;
+import com.islamhamada.UserService.exception.UserServiceException;
 import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.repository.UserRepository;
 import com.islamhamada.petshop.contracts.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -36,7 +38,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUser(long userId) {
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).orElseThrow(() ->
+            new UserServiceException("NOT_FOUND", "No user found with id: " + userId, HttpStatus.NOT_FOUND));
         UserDTO userDTO = UserDTO.builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
@@ -55,7 +58,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(long user_id, UpdateUserRequest request) {
-        User user = userRepository.findById(user_id).get();
+        User user = userRepository.findById(user_id).orElseThrow(() ->
+                new UserServiceException("NOT_FOUND", "No user found with id: " + user_id, HttpStatus.NOT_FOUND));
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setCountry(request.getCountry());
