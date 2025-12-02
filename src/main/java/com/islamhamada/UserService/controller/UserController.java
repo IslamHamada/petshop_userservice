@@ -1,6 +1,5 @@
 package com.islamhamada.UserService.controller;
 
-import com.islamhamada.UserService.entity.User;
 import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.service.UserService;
