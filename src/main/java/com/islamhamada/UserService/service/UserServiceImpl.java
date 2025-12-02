@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUser(long userId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
-            new UserServiceException("NOT_FOUND", "No user found with id: " + userId, HttpStatus.NOT_FOUND));
+            new UserServiceException("No user found with id: " + userId, "NOT_FOUND", HttpStatus.NOT_FOUND));
         UserDTO userDTO = UserDTO.builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO updateUser(long user_id, UpdateUserRequest request) {
         User user = userRepository.findById(user_id).orElseThrow(() ->
-                new UserServiceException("NOT_FOUND", "No user found with id: " + user_id, HttpStatus.NOT_FOUND));
+                new UserServiceException("No user found with id: " + user_id, "NOT_FOUND", HttpStatus.NOT_FOUND));
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setCountry(request.getCountry());
