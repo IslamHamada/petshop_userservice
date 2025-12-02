@@ -54,6 +54,11 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
@@ -68,6 +73,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -126,13 +137,7 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
-                    <from>
-                        <image>eclipse-temurin:17-jdk</image>
-                    </from>
-                    <to>
-                        <image>${REPO_URL}/user-service</image>
-                        <tags>${VERSION}</tags>
-                    </to>
+                    <to>${dockerhub-repo}:${project.artifactId}</to>
                 </configuration>
             </plugin>
 		</plugins>
