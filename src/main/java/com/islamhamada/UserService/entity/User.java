@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
-@Entity
+@Entity(name = "users")
 @Data
 @Builder
 @NoArgsConstructor
