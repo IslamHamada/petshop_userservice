@@ -6,6 +6,7 @@ import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.repository.UserRepository;
 import com.islamhamada.petshop.contracts.dto.UserDTO;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Optional;
 
+@Log4j2
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -21,8 +23,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long storeUser(StoreUserRequest request) {
+        log.info("Storing user with authId: " + request.getAuth0_id());
         Optional<User> userOptional = userRepository.findByAuth0Id(request.getAuth0_id());
         if(userOptional.isPresent()){
+            log.info("User already existed beforehand; No need to store.");
             return userOptional.get().getId();
         } else {
             User user = User.builder()
@@ -32,12 +36,14 @@ public class UserServiceImpl implements UserService {
                     .createdAt(Instant.now())
                     .build();
             user = userRepository.save(user);
+            log.info("User successfully stored with id: " + user.getId());
             return user.getId();
         }
     }
 
     @Override
     public UserDTO getUser(long userId) {
+        log.info("Getting user with id: " + userId);
         User user = userRepository.findById(userId).orElseThrow(() ->
             new UserServiceException("No user found with id: " + userId, "NOT_FOUND", HttpStatus.NOT_FOUND));
         UserDTO userDTO = UserDTO.builder()
@@ -53,11 +59,13 @@ public class UserServiceImpl implements UserService {
                 .street(user.getStreet())
                 .houseNumber(user.getHouseNumber())
                 .build();
+        log.info("User successfully fetched");
         return userDTO;
     }
 
     @Override
     public UserDTO updateUser(long user_id, UpdateUserRequest request) {
+        log.info("Updating user profile with id: " + user_id);
         User user = userRepository.findById(user_id).orElseThrow(() ->
                 new UserServiceException("No user found with id: " + user_id, "NOT_FOUND", HttpStatus.NOT_FOUND));
         user.setFirstName(request.getFirstName());
@@ -83,6 +91,7 @@ public class UserServiceImpl implements UserService {
                 .street(user.getStreet())
                 .houseNumber(user.getHouseNumber())
                 .build();
+        log.info("User successfully updated");
         return userDTO;
     }
 }
