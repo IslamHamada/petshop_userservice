@@ -10,6 +10,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
   config:
     import: configserver:http://${CONFIG_SERVER_URL:localhost:8082}
   security:
