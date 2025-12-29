@@ -21,7 +21,7 @@ public class User {
     @GeneratedValue
     private long id;
 
-    @Column(unique = true)
+    @Column(name = "auth0_id", unique = true)
     private String auth0Id;
 
     private String username;
