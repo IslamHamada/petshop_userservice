@@ -1,5 +1,5 @@
 node {
-    def repourl = "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
+    def repourl = "islamhamada/petshop"
     def mvnHome = tool name: 'maven', type: 'maven'
     def mvnCMD = "${mvnHome}/bin/mvn"
     def version = sh(script: "date +%s", returnStdout: true).trim()
