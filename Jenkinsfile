@@ -20,7 +20,7 @@ node {
     stage('Quality gate') {
         waitForQualityGate abortPipeline: true
     }
-    stage('Build and Push Image') {
+    stage('Push Image') {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
             sh("${mvnCMD} jib:build -DREPO_URL=${repourl} -DVERSION=${version} -Djib.to.auth.username=$DOCKER_USER -Djib.to.auth.password=$DOCKER_PASS")
         }
