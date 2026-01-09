@@ -159,7 +159,7 @@
             </plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
-				<artifactId>org.jacoco.report</artifactId>
+				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.14</version>
 				<configuration>
 					<excludes>com/islamhamada/petshop/exception/*</excludes>
