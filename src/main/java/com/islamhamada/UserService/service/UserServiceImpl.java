@@ -94,4 +94,12 @@ public class UserServiceImpl implements UserService {
         log.info("User successfully updated");
         return userDTO;
     }
+
+    @Override
+    public String getUsername(long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new UserServiceException("No user with given id: " + userId, "NOT_FOUND", HttpStatus.NOT_FOUND)
+        );
+        return user.getUsername();
+    }
 }

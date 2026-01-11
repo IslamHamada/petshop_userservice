@@ -38,4 +38,9 @@ public class UserController {
         UserDTO user = userService.updateUser(user_id, request);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @GetMapping("/username/{user_id}")
+    public ResponseEntity<String> getUsername(@PositiveOrZero @PathVariable long user_id){
+        return new ResponseEntity<>(userService.getUsername(user_id), HttpStatus.OK);
+    }
 }
