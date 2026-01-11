@@ -97,9 +97,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getUsername(long userId) {
+        log.info("Fetching username for user with id: " + userId);
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new UserServiceException("No user with given id: " + userId, "NOT_FOUND", HttpStatus.NOT_FOUND)
         );
+        log.info("Username already fetched");
         return user.getUsername();
     }
 }
