@@ -67,7 +67,7 @@ class UserControllerTest {
         @Test
         public void success_new_user() throws Exception {
             StoreUserRequest storeUserRequest = getMockStoreUserRequest();
-            MvcResult mvcResult = mockMvc.perform(post("/user")
+            MvcResult mvcResult = mockMvc.perform(post("/user/protected")
                     .with(jwt().authorities(neededRole))
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .content(objectMapper.writeValueAsString(storeUserRequest))
@@ -86,7 +86,7 @@ class UserControllerTest {
             User user = getMockUser();
             userRepository.save(user);
             StoreUserRequest storeUserRequest = getMockStoreUserRequest();
-            MvcResult mvcResult = mockMvc.perform(post("/user")
+            MvcResult mvcResult = mockMvc.perform(post("/user/protected")
                             .with(jwt().authorities(neededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(storeUserRequest))
@@ -110,7 +110,7 @@ class UserControllerTest {
         @Test
         public void failure_no_permission() throws Exception {
             StoreUserRequest storeUserRequest = getMockStoreUserRequest();
-            mockMvc.perform(post("/user")
+            mockMvc.perform(post("/user/protected")
                     .with(jwt().authorities(notNeededRule))
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .content(objectMapper.writeValueAsString(storeUserRequest))
@@ -121,7 +121,7 @@ class UserControllerTest {
         @ParameterizedTest
         @MethodSource("bad_input")
         public void failure_bad_input(StoreUserRequest storeUserRequest) throws Exception {
-            mockMvc.perform(post("/user")
+            mockMvc.perform(post("/user/protected")
                             .with(jwt().authorities(neededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(storeUserRequest))
@@ -173,7 +173,7 @@ class UserControllerTest {
         public void success() throws Exception {
             User user = getMockUser();
             user = userRepository.save(user);
-            MvcResult mvcResult = mockMvc.perform(get("/user/" + user.getId())
+            MvcResult mvcResult = mockMvc.perform(get("/user/protected/" + user.getId())
                             .with(jwt().authorities(neededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(user))
@@ -197,7 +197,7 @@ class UserControllerTest {
         @Test
         public void failure_no_user() throws Exception {
             long user_id = 1;
-            MvcResult mvcResult = mockMvc.perform(get("/user/" + user_id)
+            MvcResult mvcResult = mockMvc.perform(get("/user/protected/" + user_id)
                             .with(jwt().authorities(neededRole))
                     ).andExpect(status().isNotFound())
                     .andReturn();
@@ -210,7 +210,7 @@ class UserControllerTest {
         @Test
         public void failure_no_permission() throws Exception {
             long user_id = 1;
-            mockMvc.perform(get("/user/" + user_id)
+            mockMvc.perform(get("/user/protected/" + user_id)
                             .with(jwt().authorities(notNeededRole))
                     ).andExpect(status().isForbidden())
                     .andReturn();
@@ -219,7 +219,7 @@ class UserControllerTest {
         @Test
         public void failure_bad_input() throws Exception {
             long user_id = -1;
-            mockMvc.perform(get("/user/" + user_id)
+            mockMvc.perform(get("/user/protected/" + user_id)
                             .with(jwt().authorities(notNeededRole))
                     ).andExpect(status().isBadRequest())
                     .andReturn();
@@ -237,7 +237,7 @@ class UserControllerTest {
             User user = getMockUser();
             userRepository.save(user);
             UpdateUserRequest request = getMockUpdateUserRequest();
-            MvcResult mvcResult = mockMvc.perform(put("/user/" + user_id)
+            MvcResult mvcResult = mockMvc.perform(put("/user/protected/" + user_id)
                             .with(jwt().authorities(neededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(request))
@@ -264,7 +264,7 @@ class UserControllerTest {
         public void failure_no_user() throws Exception {
             long user_id = 1;
             UpdateUserRequest request = getMockUpdateUserRequest();
-            MvcResult mvcResult = mockMvc.perform(put("/user/" + user_id)
+            MvcResult mvcResult = mockMvc.perform(put("/user/protected/" + user_id)
                             .with(jwt().authorities(neededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(request))
@@ -280,7 +280,7 @@ class UserControllerTest {
         public void failure_no_permission() throws Exception {
             long user_id = 1;
             UpdateUserRequest updateUserRequest = getMockUpdateUserRequest();
-            mockMvc.perform(put("/user/" + user_id)
+            mockMvc.perform(put("/user/protected/" + user_id)
                             .with(jwt().authorities(notNeededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(updateUserRequest))
@@ -291,7 +291,7 @@ class UserControllerTest {
         @ParameterizedTest
         @MethodSource("bad_input")
         public void failure_bad_input(long user_id, UpdateUserRequest updateUserRequest) throws Exception {
-            mockMvc.perform(put("/user/" + user_id)
+            mockMvc.perform(put("/user/protected/" + user_id)
                             .with(jwt().authorities(notNeededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(updateUserRequest))
