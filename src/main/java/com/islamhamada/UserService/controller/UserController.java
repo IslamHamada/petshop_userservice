@@ -40,8 +40,8 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/username/{user_id}")
-    public ResponseEntity<String> getUsername(@PositiveOrZero @PathVariable long user_id){
-        return new ResponseEntity<>(userService.getUsername(user_id), HttpStatus.OK);
+    @GetMapping("/username/{userId}")
+    public ResponseEntity<String> getUsername(@PositiveOrZero @PathVariable long userId){
+        return new ResponseEntity<>(userService.getUsername(userId), HttpStatus.OK);
     }
 }
