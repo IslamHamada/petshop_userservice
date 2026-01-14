@@ -2,7 +2,7 @@ package com.islamhamada.UserService.exception;
 
 import com.islamhamada.petshop.contracts.model.RestExceptionResponse;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,6 +16,7 @@ public class RestResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserServiceException.class)
     public ResponseEntity<RestExceptionResponse> handleUserServiceException(UserServiceException exception) {
+        log.error(exception);
         return new ResponseEntity<>(RestExceptionResponse.builder()
                 .error_code(exception.getError_code())
                 .error_message(exception.getMessage())
