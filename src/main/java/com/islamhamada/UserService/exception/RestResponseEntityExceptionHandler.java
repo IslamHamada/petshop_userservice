@@ -23,12 +23,12 @@ public class RestResponseEntityExceptionHandler {
                 .build(), exception.getHttpStatus());
     }
 
-    @Override
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<Object>handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+    public ResponseEntity<RestExceptionResponse> handleUserServiceException(MethodArgumentNotValidException exception) {
+        log.error(exception);
         return new ResponseEntity<>(RestExceptionResponse.builder()
                 .error_code(exception.getDetailMessageCode())
                 .error_message(exception.getMessage())
-                .build(), status);
+                .build(), exception.getStatusCode());
     }
 }
