@@ -21,7 +21,7 @@ public class RestResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<RestExceptionResponse> handleUserServiceException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<RestExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         log.error(exception);
         return new ResponseEntity<>(RestExceptionResponse.builder()
                 .error_code(exception.getDetailMessageCode())
