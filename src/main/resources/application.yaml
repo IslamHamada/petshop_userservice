@@ -2,7 +2,7 @@ spring:
   application:
     name: UserService
   datasource:
-    url: jdbc:mysql://${DB_URL:localhost:3306}/petshop
+    url: jdbc:mysql://${DB_URL:localhost:3306}/petshop_user?createDatabaseIfNotExist=true
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
