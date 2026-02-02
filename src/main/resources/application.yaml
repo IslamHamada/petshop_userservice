@@ -9,11 +9,11 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
-    defer-datasource-initialization: true
+      ddl-auto: validate
+    defer-datasource-initialization: false
   sql:
     init:
-      mode: always
+      mode: never
   config:
     import: configserver:http://${CONFIG_SERVER_URL:localhost:8082}
   security:
