@@ -233,11 +233,10 @@ class UserControllerTest {
 
         @Test
         public void success() throws Exception {
-            long user_id = 1;
             User user = getMockUser();
-            userRepository.save(user);
+            long userId = userRepository.save(user).getId();
             UpdateUserRequest request = getMockUpdateUserRequest();
-            MvcResult mvcResult = mockMvc.perform(put("/user/protected/" + user_id)
+            MvcResult mvcResult = mockMvc.perform(put("/user/protected/" + userId)
                             .with(jwt().authorities(neededRole))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .content(objectMapper.writeValueAsString(request))
