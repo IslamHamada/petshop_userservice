@@ -6,9 +6,11 @@ import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.repository.UserRepository;
 import com.islamhamada.petshop.contracts.dto.UserDTO;
+import com.islamhamada.petshop.contracts.model.KafkaUserMessage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -17,6 +19,9 @@ import java.util.Optional;
 @Log4j2
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    KafkaTemplate<String, KafkaUserMessage> kafkaTemplate;
 
     @Autowired
     UserRepository userRepository;
@@ -36,6 +41,10 @@ public class UserServiceImpl implements UserService {
                     .createdAt(Instant.now())
                     .build();
             user = userRepository.save(user);
+            kafkaTemplate.send("notification", KafkaUserMessage.builder()
+                    .message("User " + user.getUsername() + " successfully registered")
+                    .userId(user.getId())
+                    .build());
             log.info("User successfully stored with id: " + user.getId());
             return user.getId();
         }
