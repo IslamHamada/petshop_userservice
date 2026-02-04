@@ -6,6 +6,7 @@ import com.islamhamada.UserService.model.StoreUserRequest;
 import com.islamhamada.UserService.model.UpdateUserRequest;
 import com.islamhamada.UserService.repository.UserRepository;
 import com.islamhamada.petshop.contracts.dto.UserDTO;
+import com.islamhamada.petshop.contracts.model.KafkaUserMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -21,10 +24,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@EmbeddedKafka(partitions = 1, topics = "notification")
 class UserServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private KafkaTemplate<String, KafkaUserMessage> kafkaTemplate;
 
     @InjectMocks
     UserService userService = new UserServiceImpl();
